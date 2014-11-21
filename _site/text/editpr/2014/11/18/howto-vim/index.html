@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Memo on VIM use &#8211; Kektinta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Some notes on Vim use">
+    <meta name="author" content="Kektinta">
+    <meta name="keywords" content="text, editpr">
+    <link rel="canonical" href="http://kektinta.github.io/text/editpr/2014/11/18/howto-vim/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+      <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Memo on VIM use">
+    <meta property="og:description" content="Some thoughts for a simple relation with you PC">
+    <meta property="og:url" content="http://kektinta.github.io/text/editpr/2014/11/18/howto-vim/">
+    <meta property="og:site_name" content="Kektinta">
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://kektinta.github.io" class="site-title">Kektinta</a>
+      <nav class="site-nav right">
+        <a href="/about/">About</a>
+<a href="/contact/">Contact</a>
+<a href="/archive/">Archive</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+        <div class="social-icons">
+  <div class="left">
+    
+      <a class="fa fa-github" href="https://github.com/kektinta"></a>
+    
+    <a class="fa fa-rss" href="/feed.xml"></a>
+    
+    
+    
+      <a class="fa fa-envelope" href="mailto:kektinta@inventati.org"></a>
+    
+    
+  </div>
+  <div class="right">
+    
+    
+    
+  </div>
+</div>
+<div class="clearfix"></div>
+
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1 class="py2">Memo on VIM use</h1>
+  <span class="post-meta">Nov 18, 2014</span><br>
+  
+  <span class="post-meta small">5 minute read</span>
+</div>
+
+<article class="post-content">
+  <p>On my Thinkpad T410 running Linux, Vim can be called from within the Terminal or  <em>tmux</em> .
+On my office PC running Windows, I use Sublime text 3 with the plugin Vintageous that emulate Vim behaviors.</p>
+
+<h1 id="vims-modes">Vim’s modes</h1>
+
+<p>Normal mode</p>
+
+<p>Insert mode
+Insert Normal mode : a special version of Normal mode, which gives you one bullet within Insert mode : Ctrl + o </p>
+
+<p>Visual mode </p>
+
+<p>Operator-Pending mode : mode that last during the brief interval between un operator and a motion. For example : d w</p>
+
+<h2 id="often-used-keys">Often-used keys</h2>
+
+<p><em>jj</em> : behaves like ESC, to  escape from Insert mode and return to Normal mode . This is a custom command added inside <em>Key Binding - User</em> file of ST3
+* : searchs for word under cursor
+» or « : to indent or reindent line</p>
+
+<p>Enter Insert mode :</p>
+
+<p><em>i</em> : insert cursor just before the normal-mode cursor.
+<em>I</em> : enter insert mode at the beginning of the line.
+<em>a</em> : insert cursor just after the normal-mode cursor.
+<em>A</em> : enter insert mode at the end of the actual line.
+<em>o</em>/<em>O</em> : insert mode started at next/previous line.</p>
+
+<h2 id="moving-around-in-normal-mode">Moving around in Normal mode:</h2>
+
+<ul>
+  <li>Moving by character : h, j, k, l </li>
+  <li>Moving by line:
+    <ul>
+      <li><em>0</em> : to the beginning of the line</li>
+      <li><em>$</em> : to the end of the line.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Targetting a character : f{char}. 
+Move to the next occurence : ;
+Move back to previous occurence : ,
+If char is (, {, or [; to go to its match : % . This feature is useful to detect missing brackets while coding.</p>
+
+<p>For targetting a precise word or stem, use search inside the command line : /</p>
+
+<p>Moving on a bigger scale than line</p>
+
+<ul>
+  <li>Move to the beginning of the line : gg</li>
+  <li>Move to the last line : G</li>
+  <li>
+    <p>Move to <em>n</em>th line : nG</p>
+  </li>
+  <li>Move to the top of the screen : H</li>
+  <li>Move to the middle of the screen : M</li>
+  <li>
+    <p>Move to the bottom of the screen : L</p>
+  </li>
+  <li>Put the line with the cursor at the center : z.</li>
+  <li>Put the line with the cursor at the top : zt</li>
+  <li>
+    <p>Puth the line with the cursor at the bottom : zb</p>
+  </li>
+  <li>Move half page down : Ctrl + d</li>
+  <li>Move half page up : Ctrl + u</li>
+  <li>Move back a page : Ctrl + b</li>
+  <li>Move forward a page : Ctr + f </li>
+</ul>
+
+<h2 id="substitution-operation">Substitution operation</h2>
+
+<p>To substitute new for all ‘old’s on a line type       :s/old/new/g
+To substitute phrases between two line #’s type       :#,#s/old/new/g
+To substitute all occurrences in the file type        :%s/old/new/g
+To ask for confirmation each time add ‘c’             :%s/old/new/gc</p>
+
+<p>Example : Delete white space from the beginning of 4 line (from 61th to the 64th): :61,64s/^  / </p>
+
+<h1 id="vim-features-for-writing">Vim features for writing</h1>
+
+<h2 id="spell-checking">Spell checking</h2>
+
+<p>When writing, I prefer to separate the composition and spell-checking proceses intoseparate tasks. I’ll often disable the spell checker while I write to avoid being nagged each time I make a mistake. When I’m ready, I’ll make a final pass through the document with the spell checker enable, fixing each typo that it flags ( Drew Neil )</p>
+
+<p>Essencial Normal mode commands for operating Vim’s spell checker:</p>
+
+<ul>
+  <li>]s : jump to next spelling error</li>
+  <li>[s : jump to previous spelling error</li>
+  <li>z= : suggest corrections for current word</li>
+  <li>zg : add current word to spell file</li>
+  <li>zw : remove current word from spell file</li>
+  <li>zug : revert zg or zw command for current word</li>
+</ul>
+
+<p><code>vim
+:set spell
+:set spelllang= en, fr, de
+</code></p>
+
+<p>This functionality is provided by the plugin spellfire.vim, which ships with Vim. To make it work, you have to add these two line inside the <em>vimrc</em> file</p>
+
+<p><code>vim
+set nocompatible
+plugin on
+</code></p>
+
+<h1 id="vim-inside-sublime-text-3">Vim inside Sublime Text 3</h1>
+
+<p><em>Vintageous</em> is a plugin for ST3 that emulates Vim behavior inside ST3. It’s a good combo to take advantage of Vim power and ST3 features, such as cross-platform, fuzzy search.<br />
+The plugin introduces a new feature compare to classic Vim feature, the <em>Vintageous selection mode</em> being able to handle ST3’s multi-selection feature.</p>
+
+<p>I use Vintageous since it’s more recent than Vintage. In the <em>Preferences.sublime-settings</em> file, to activate the use of CTRL touch, insert </p>
+
+<p><code>
+	"vintageous_use_ctrl_keys":false,
+</code></p>
+
+<p>We have to remap Sublime Text’s combos with the touch CTRL involved inside the file <em>Default.sublime-keymap</em> which could be acces my the menu bar, Preferences/Key bindings - User.</p>
+
+<p><em>Ctrl + r</em> : show the layout , is map to Alt +r</p>
+
+<p><code>
+{ "keys": ["alt+r"], "command": "show_overlay", "args": {"overlay": "goto", "text": "@"} }, 
+</code></p>
+
+<h2 id="vintageous-select-mode">Vintageous select mode</h2>
+
+<p>Vintageous select mode is different from Select mode in Vim. It exposes a distinctive feature of ST, multiple selection. </p>
+
+<p>Commands :
+* gh : Enter vintageous select mode from normal or visual mode
+* j : add selection
+* k : remove selection
+* l : skip selection
+* A : select all instances
+* i : Enter Visual mode ( preserving selections)
+* J : Clear multiple selection and enter normal mode
+* gH : After a search with \ or ?, select <strong>all</strong> matches</p>
+
+<p>Notes :</p>
+
+<p>Select mode is unlike other modes in Vintageous.</p>
+
+<p>Once you’ve created visual selections in select mode, you must return to insert mode by pressing i in order to edit text. Once in insert mode, you can switch to normal mode, etc.</p>
+
+<p>If you press Esc while in select mode, you will return to normal mode, but multiple carets won’t be destroyed. If you press Esc a second time, you will be left with one single caret in normal mode.</p>
+
+<p>Actions performed in select mode cannot be repeated with .. Or perhaps they can, I’m not sure.</p>
+
+<h2 id="vintageous-and-r-submits">Vintageous and R submits</h2>
+
+<p>Without Vintageous, the most usual actions to send code to R terminal is :</p>
+
+<ul>
+  <li>Select line (nothing to do ) or several lines : Ctr + l</li>
+  <li>Submit line(s) to terminal : Ctr + Shift + l</li>
+</ul>
+
+<p>Active Vintageous take back the control of combinaisons Ctrl + {char}, we have to use Vim way to select lines :</p>
+
+<ul>
+  <li>Select line(s) : V</li>
+  <li>Submit selected zone as usual : Ctr + Shift + l</li>
+</ul>
+
+
+</article>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+  <div class="p2 wrap">
+    <div class="measure mt1 center">
+      <small>
+        Crafted with &lt;3 by <a href="http://johnotander.com">John Otander</a> (<a href="https://twitter.com/4lpine">@4lpine</a>).<br>
+        &lt;/&gt; available on <a href="https://github.com/johnotander/pixyll">Github</a>.
+      </small>
+    </div>
+  </div>
+</footer>
+
+
+
+</body>
+</html>

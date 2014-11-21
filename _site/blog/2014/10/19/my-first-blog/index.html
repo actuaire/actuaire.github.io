@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My first blog &#8211; Kektinta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Some thoughts for a simple relation with you PC">
+    <meta name="author" content="Kektinta">
+    <meta name="keywords" content="blog">
+    <link rel="canonical" href="http://kektinta.github.io/blog/2014/10/19/my-first-blog/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+      <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="My first blog">
+    <meta property="og:description" content="Some thoughts for a simple relation with you PC">
+    <meta property="og:url" content="http://kektinta.github.io/blog/2014/10/19/my-first-blog/">
+    <meta property="og:site_name" content="Kektinta">
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://kektinta.github.io" class="site-title">Kektinta</a>
+      <nav class="site-nav right">
+        <a href="/about/">About</a>
+<a href="/contact/">Contact</a>
+<a href="/archive/">Archive</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+        <div class="social-icons">
+  <div class="left">
+    
+      <a class="fa fa-github" href="https://github.com/kektinta"></a>
+    
+    <a class="fa fa-rss" href="/feed.xml"></a>
+    
+    
+    
+      <a class="fa fa-envelope" href="mailto:kektinta@inventati.org"></a>
+    
+    
+  </div>
+  <div class="right">
+    
+    
+    
+  </div>
+</div>
+<div class="clearfix"></div>
+
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1 class="py2">My first blog</h1>
+  <span class="post-meta">Oct 19, 2014</span><br>
+  
+  <span class="post-meta small">2 minute read</span>
+</div>
+
+<article class="post-content">
+  <p>Finally, I have a blog run on Jekyll and Github. In my case, the simplest way is using pure Jekyll. Others solutions such as Octopress or Jekyllbootstrap have cost me a lot energy and time. Moreover, I felt that these latters have taken away from the UNIX’s KISS principle. What please me the most with pure Jekyll is the Spartan configurations. Everythins is about the contents, the appearance is reduced to the strict necessary.</p>
+
+<p>Here are steps (in my case) to lauch the [datasciencer] blog:</p>
+
+<h2 id="set-up-stuffs">Set-up stuffs:</h2>
+
+<ul>
+  <li>Install Git : </li>
+</ul>
+
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo pacman -S git</code></pre></div>
+
+<ul>
+  <li>Ruby using <strong>rbenv</strong> <a href="http://octopress.org/docs/setup/rbenv/">How</a>. Add this to your <em>.bashrc</em> file</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">cd</span>
+git clone git://github.com/sstephenson/rbenv.git .rbenv
+<span class="nb">echo</span> <span class="s1">&#39;export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;&#39;</span> &gt;&gt; ~/.bashrc
+<span class="nb">echo</span> <span class="s1">&#39;eval &quot;$(rbenv init -)&quot;&#39;</span> &gt;&gt; ~/.bashrc
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build</code></pre></div>
+
+<ul>
+  <li>Pre-install nodejs to have a javascript instant :</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo pacman -S nodejs</code></pre></div>
+
+<ul>
+  <li>Create within my Github account the repository <em>datasciencer.github.io</em></li>
+  <li>
+    <p>Install openssh</p>
+  </li>
+  <li>Generate and add the public ssh key to this repository inside Settings/Deploy key. The key is show by enter this command line inside the terminal : cat .ssh/id_rsa.pub</li>
+  <li>Install <strong>jekyll</strong> through Ruby’s <strong>gem</strong></li>
+</ul>
+
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">gem install jekyll</code></pre></div>
+
+<h2 id="write-the-first-blog">Write the first blog</h2>
+
+<p>Let’s start now by creating the jekyll blog : </p>
+
+<ul>
+  <li>jekyll new datasciencer.github.io</li>
+  <li>cd datasciencer.github.io</li>
+  <li>git remote set-url origin git@github.com:datasciencer/datasciencer.githu.io.git</li>
+  <li>git add .</li>
+  <li>git commit -m “first commit”</li>
+  <li>git pull</li>
+  <li>git push origin master</li>
+</ul>
+
+<p>Let’s check if jekyll could highlight R code</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r">packages_vec <span class="o">&lt;</span>\<span class="o">-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&#39;reshape2&#39;</span><span class="p">,</span> <span class="s">&#39;ggplot2&#39;</span><span class="p">,</span> <span class="s">&#39;XLConnect&#39;</span><span class="p">,</span> <span class="s">&#39;dplyr&#39;</span><span class="p">)</span>
+<span class="kp">lapply</span><span class="p">(</span>packages_vec<span class="p">,</span> <span class="kn">require</span><span class="p">,</span> character.only<span class="o">=</span><span class="bp">T</span><span class="p">)</span></code></pre></div>
+
+<p>In case that you have multi-github-accounts and want to set ssh certificates,  follow <a href="http://code.tutsplus.com/tutorials/quick-tip-how-to-work-with-github-and-multiple-accounts--net-22574">this link</a> : </p>
+
+<ul>
+  <li>Generate a key for each repository of different github accounts</li>
+  <li>Create a config file inside .ssh/ for ghaccount-1 and ghaccount-2</li>
+  <li>Inside each origin folder, for example github account-1, enter this command into the terminal : git remote set-url origin git@ghaccount-1:nameaccount1/nameaccount1.github.io.git</li>
+</ul>
+
+<p>Check out the <a href="http://jekyllrb.com">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://github.com/jekyll/jekyll-help">Jekyll’s dedicated Help repository</a>.</p>
+
+<p>[datasciencer] : http://datasciencer.github.io/</p>
+
+</article>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+  <div class="p2 wrap">
+    <div class="measure mt1 center">
+      <small>
+        Crafted with &lt;3 by <a href="http://johnotander.com">John Otander</a> (<a href="https://twitter.com/4lpine">@4lpine</a>).<br>
+        &lt;/&gt; available on <a href="https://github.com/johnotander/pixyll">Github</a>.
+      </small>
+    </div>
+  </div>
+</footer>
+
+
+
+</body>
+</html>

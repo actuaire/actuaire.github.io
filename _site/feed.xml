@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kektinta</title>
+    <description>Some thoughts for a simple relation with you PC</description>
+    <link>http://kektinta.github.io/</link>
+    <atom:link href="http://kektinta.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>Memo on VIM use</title>
+        <description>&lt;p&gt;On my Thinkpad T410 running Linux, Vim can be called from within the Terminal or  &lt;em&gt;tmux&lt;/em&gt; .
+On my office PC running Windows, I use Sublime text 3 with the plugin Vintageous that emulate Vim behaviors.&lt;/p&gt;
+
+&lt;h1 id=&quot;vims-modes&quot;&gt;Vim’s modes&lt;/h1&gt;
+
+&lt;p&gt;Normal mode&lt;/p&gt;
+
+&lt;p&gt;Insert mode
+Insert Normal mode : a special version of Normal mode, which gives you one bullet within Insert mode : Ctrl + o &lt;/p&gt;
+
+&lt;p&gt;Visual mode &lt;/p&gt;
+
+&lt;p&gt;Operator-Pending mode : mode that last during the brief interval between un operator and a motion. For example : d w&lt;/p&gt;
+
+&lt;h2 id=&quot;often-used-keys&quot;&gt;Often-used keys&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;jj&lt;/em&gt; : behaves like ESC, to  escape from Insert mode and return to Normal mode . This is a custom command added inside &lt;em&gt;Key Binding - User&lt;/em&gt; file of ST3
+* : searchs for word under cursor
+» or « : to indent or reindent line&lt;/p&gt;
+
+&lt;p&gt;Enter Insert mode :&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;i&lt;/em&gt; : insert cursor just before the normal-mode cursor.
+&lt;em&gt;I&lt;/em&gt; : enter insert mode at the beginning of the line.
+&lt;em&gt;a&lt;/em&gt; : insert cursor just after the normal-mode cursor.
+&lt;em&gt;A&lt;/em&gt; : enter insert mode at the end of the actual line.
+&lt;em&gt;o&lt;/em&gt;/&lt;em&gt;O&lt;/em&gt; : insert mode started at next/previous line.&lt;/p&gt;
+
+&lt;h2 id=&quot;moving-around-in-normal-mode&quot;&gt;Moving around in Normal mode:&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Moving by character : h, j, k, l &lt;/li&gt;
+  &lt;li&gt;Moving by line:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;em&gt;0&lt;/em&gt; : to the beginning of the line&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;$&lt;/em&gt; : to the end of the line.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Targetting a character : f{char}. 
+Move to the next occurence : ;
+Move back to previous occurence : ,
+If char is (, {, or [; to go to its match : % . This feature is useful to detect missing brackets while coding.&lt;/p&gt;
+
+&lt;p&gt;For targetting a precise word or stem, use search inside the command line : /&lt;/p&gt;
+
+&lt;p&gt;Moving on a bigger scale than line&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Move to the beginning of the line : gg&lt;/li&gt;
+  &lt;li&gt;Move to the last line : G&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Move to &lt;em&gt;n&lt;/em&gt;th line : nG&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Move to the top of the screen : H&lt;/li&gt;
+  &lt;li&gt;Move to the middle of the screen : M&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Move to the bottom of the screen : L&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Put the line with the cursor at the center : z.&lt;/li&gt;
+  &lt;li&gt;Put the line with the cursor at the top : zt&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Puth the line with the cursor at the bottom : zb&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Move half page down : Ctrl + d&lt;/li&gt;
+  &lt;li&gt;Move half page up : Ctrl + u&lt;/li&gt;
+  &lt;li&gt;Move back a page : Ctrl + b&lt;/li&gt;
+  &lt;li&gt;Move forward a page : Ctr + f &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;substitution-operation&quot;&gt;Substitution operation&lt;/h2&gt;
+
+&lt;p&gt;To substitute new for all ‘old’s on a line type       :s/old/new/g
+To substitute phrases between two line #’s type       :#,#s/old/new/g
+To substitute all occurrences in the file type        :%s/old/new/g
+To ask for confirmation each time add ‘c’             :%s/old/new/gc&lt;/p&gt;
+
+&lt;p&gt;Example : Delete white space from the beginning of 4 line (from 61th to the 64th): :61,64s/^  / &lt;/p&gt;
+
+&lt;h1 id=&quot;vim-features-for-writing&quot;&gt;Vim features for writing&lt;/h1&gt;
+
+&lt;h2 id=&quot;spell-checking&quot;&gt;Spell checking&lt;/h2&gt;
+
+&lt;p&gt;When writing, I prefer to separate the composition and spell-checking proceses intoseparate tasks. I’ll often disable the spell checker while I write to avoid being nagged each time I make a mistake. When I’m ready, I’ll make a final pass through the document with the spell checker enable, fixing each typo that it flags ( Drew Neil )&lt;/p&gt;
+
+&lt;p&gt;Essencial Normal mode commands for operating Vim’s spell checker:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;]s : jump to next spelling error&lt;/li&gt;
+  &lt;li&gt;[s : jump to previous spelling error&lt;/li&gt;
+  &lt;li&gt;z= : suggest corrections for current word&lt;/li&gt;
+  &lt;li&gt;zg : add current word to spell file&lt;/li&gt;
+  &lt;li&gt;zw : remove current word from spell file&lt;/li&gt;
+  &lt;li&gt;zug : revert zg or zw command for current word&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;vim
+:set spell
+:set spelllang= en, fr, de
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This functionality is provided by the plugin spellfire.vim, which ships with Vim. To make it work, you have to add these two line inside the &lt;em&gt;vimrc&lt;/em&gt; file&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;vim
+set nocompatible
+plugin on
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;vim-inside-sublime-text-3&quot;&gt;Vim inside Sublime Text 3&lt;/h1&gt;
+
+&lt;p&gt;&lt;em&gt;Vintageous&lt;/em&gt; is a plugin for ST3 that emulates Vim behavior inside ST3. It’s a good combo to take advantage of Vim power and ST3 features, such as cross-platform, fuzzy search.&lt;br /&gt;
+The plugin introduces a new feature compare to classic Vim feature, the &lt;em&gt;Vintageous selection mode&lt;/em&gt; being able to handle ST3’s multi-selection feature.&lt;/p&gt;
+
+&lt;p&gt;I use Vintageous since it’s more recent than Vintage. In the &lt;em&gt;Preferences.sublime-settings&lt;/em&gt; file, to activate the use of CTRL touch, insert &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+	&quot;vintageous_use_ctrl_keys&quot;:false,
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;We have to remap Sublime Text’s combos with the touch CTRL involved inside the file &lt;em&gt;Default.sublime-keymap&lt;/em&gt; which could be acces my the menu bar, Preferences/Key bindings - User.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Ctrl + r&lt;/em&gt; : show the layout , is map to Alt +r&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+{ &quot;keys&quot;: [&quot;alt+r&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;@&quot;} }, 
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;vintageous-select-mode&quot;&gt;Vintageous select mode&lt;/h2&gt;
+
+&lt;p&gt;Vintageous select mode is different from Select mode in Vim. It exposes a distinctive feature of ST, multiple selection. &lt;/p&gt;
+
+&lt;p&gt;Commands :
+* gh : Enter vintageous select mode from normal or visual mode
+* j : add selection
+* k : remove selection
+* l : skip selection
+* A : select all instances
+* i : Enter Visual mode ( preserving selections)
+* J : Clear multiple selection and enter normal mode
+* gH : After a search with \ or ?, select &lt;strong&gt;all&lt;/strong&gt; matches&lt;/p&gt;
+
+&lt;p&gt;Notes :&lt;/p&gt;
+
+&lt;p&gt;Select mode is unlike other modes in Vintageous.&lt;/p&gt;
+
+&lt;p&gt;Once you’ve created visual selections in select mode, you must return to insert mode by pressing i in order to edit text. Once in insert mode, you can switch to normal mode, etc.&lt;/p&gt;
+
+&lt;p&gt;If you press Esc while in select mode, you will return to normal mode, but multiple carets won’t be destroyed. If you press Esc a second time, you will be left with one single caret in normal mode.&lt;/p&gt;
+
+&lt;p&gt;Actions performed in select mode cannot be repeated with .. Or perhaps they can, I’m not sure.&lt;/p&gt;
+
+&lt;h2 id=&quot;vintageous-and-r-submits&quot;&gt;Vintageous and R submits&lt;/h2&gt;
+
+&lt;p&gt;Without Vintageous, the most usual actions to send code to R terminal is :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Select line (nothing to do ) or several lines : Ctr + l&lt;/li&gt;
+  &lt;li&gt;Submit line(s) to terminal : Ctr + Shift + l&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Active Vintageous take back the control of combinaisons Ctrl + {char}, we have to use Vim way to select lines :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Select line(s) : V&lt;/li&gt;
+  &lt;li&gt;Submit selected zone as usual : Ctr + Shift + l&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Tue, 18 Nov 2014 22:45:18 +0100</pubDate>
+        <link>http://kektinta.github.io/text/editpr/2014/11/18/howto-vim/</link>
+        <guid isPermaLink="true">http://kektinta.github.io/text/editpr/2014/11/18/howto-vim/</guid>
+      </item>
+    
+      <item>
+        <title>My first post</title>
+        <description>&lt;p&gt;I got problem to push to different github accounts: Let’s see 
+if it works. Here is a test from Nano within the terminal.
+yes’s jour&lt;/p&gt;
+</description>
+        <pubDate>Mon, 20 Oct 2014 14:32:18 +0200</pubDate>
+        <link>http://kektinta.github.io/2014/10/20/first-post/</link>
+        <guid isPermaLink="true">http://kektinta.github.io/2014/10/20/first-post/</guid>
+      </item>
+    
+      <item>
+        <title>The digital spiral</title>
+        <description>&lt;p&gt;The Internet is everywhere, the only reasonable answer is individual.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.lemonde.fr/style/article/2012/04/27/ces-branches-qui-debranchent_1691531_1575563.html&quot;&gt;Lemonde&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[TOC]&lt;/p&gt;
+
+&lt;h1 id=&quot;hardwares&quot;&gt;Hardwares&lt;/h1&gt;
+
+&lt;p&gt;The devices shouldn’t be more than 10&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Refurbished Thinkpad with Linux installed (Manjaro OS)&lt;/li&gt;
+  &lt;li&gt;USB flashdrive, ex : 8Gb metalic Transcend &lt;/li&gt;
+  &lt;li&gt;External Hard Drive, ex : Toshiba 500Gb&lt;/li&gt;
+  &lt;li&gt;SLR, ex : K10D with SMC-A 50mm&lt;/li&gt;
+  &lt;li&gt;Compact camera&lt;/li&gt;
+  &lt;li&gt;Cellphone with physical keyboard, ex : Nokia 302. Avoid smartphones&lt;/li&gt;
+  &lt;li&gt;Watch, ex : Casio A-168&lt;/li&gt;
+  &lt;li&gt;Pocket knife, ex : Opinel N°08&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;working-with-the-pc&quot;&gt;Working with the PC&lt;/h1&gt;
+
+&lt;h2 id=&quot;softwares&quot;&gt;Softwares&lt;/h2&gt;
+
+&lt;p&gt;The main idea is that the PC should stay a modern type-writer. An over-connection will lead into a inefficient state. Hence, the softwares shouldn’t be more than 15&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;For everyday use&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Zim : taking notes and journal&lt;/li&gt;
+  &lt;li&gt;Keepassx : centralize passwords&lt;/li&gt;
+  &lt;li&gt;Firefox (+ plugins Addblock Edge, Pentadactyl)&lt;/li&gt;
+  &lt;li&gt;Smplayer (or VLC)&lt;/li&gt;
+  &lt;li&gt;Grsync&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;For photography&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Shotwell&lt;/li&gt;
+  &lt;li&gt;Gimp&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;For programming&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Sublime Text 3 : for .md and  .R files&lt;/li&gt;
+  &lt;li&gt;Git&lt;/li&gt;
+  &lt;li&gt;Rstudio : for .Rmd&lt;/li&gt;
+  &lt;li&gt;Pandoc : convert documents&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt; : Some softwares are not included in the list since I consider these  default softwares of the OS ( mine is a Xfce Manjaro Linux):&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;File manager, ex : Thunar &lt;/li&gt;
+  &lt;li&gt;Terminal, ex: Terminator or xfce4-terminal&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;configurate-the-linux-os&quot;&gt;Configurate the Linux OS&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Add shortcuts&lt;/li&gt;
+  &lt;li&gt;Install Conky&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;photography&quot;&gt;Photography&lt;/h1&gt;
+
+&lt;h2 id=&quot;some-rules-of-thumb-for-photo-shooting&quot;&gt;Some rules of thumb for photo shooting&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Generals rules&lt;/strong&gt; :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Rule of thirds&lt;/li&gt;
+  &lt;li&gt;Visual mass &lt;/li&gt;
+  &lt;li&gt;Contrast&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Portraits&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Small depth-of-field&lt;/li&gt;
+  &lt;li&gt;Overhead-cropping&lt;/li&gt;
+  &lt;li&gt;Rule of thirds&lt;/li&gt;
+  &lt;li&gt;Look direction &lt;/li&gt;
+  &lt;li&gt;Top down (female portraits) or Bottom up&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;post-processing-with-gimp&quot;&gt;Post-processing with Gimp&lt;/h2&gt;
+
+&lt;p&gt;It’s all about the moment when the photos are taken. The photo post-processing shouldn’t be systematic, but a way to enhance photos.&lt;/p&gt;
+
+&lt;p&gt;These are basic operations&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Select area : by figure, lasso or intelligent scissor&lt;/li&gt;
+  &lt;li&gt;Rescale layers &lt;/li&gt;
+  &lt;li&gt;Crop layers&lt;/li&gt;
+  &lt;li&gt;Add letters&lt;/li&gt;
+  &lt;li&gt;Colors jobs : 
+    &lt;ul&gt;
+      &lt;li&gt;Destaurate (turn image to BW) B&lt;/li&gt;
+      &lt;li&gt;Brightness &amp;amp; constrast&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Filter :
+    &lt;ul&gt;
+      &lt;li&gt;Blur &lt;/li&gt;
+      &lt;li&gt;Noise&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sun, 19 Oct 2014 23:12:11 +0200</pubDate>
+        <link>http://kektinta.github.io/blog/2014/10/19/digital-spiral/</link>
+        <guid isPermaLink="true">http://kektinta.github.io/blog/2014/10/19/digital-spiral/</guid>
+      </item>
+    
+      <item>
+        <title>My first blog</title>
+        <description>&lt;p&gt;Finally, I have a blog run on Jekyll and Github. In my case, the simplest way is using pure Jekyll. Others solutions such as Octopress or Jekyllbootstrap have cost me a lot energy and time. Moreover, I felt that these latters have taken away from the UNIX’s KISS principle. What please me the most with pure Jekyll is the Spartan configurations. Everythins is about the contents, the appearance is reduced to the strict necessary.&lt;/p&gt;
+
+&lt;p&gt;Here are steps (in my case) to lauch the [datasciencer] blog:&lt;/p&gt;
+
+&lt;h2 id=&quot;set-up-stuffs&quot;&gt;Set-up stuffs:&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Install Git : &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;sudo pacman -S git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Ruby using &lt;strong&gt;rbenv&lt;/strong&gt; &lt;a href=&quot;http://octopress.org/docs/setup/rbenv/&quot;&gt;How&lt;/a&gt;. Add this to your &lt;em&gt;.bashrc&lt;/em&gt; file&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt;
+git clone git://github.com/sstephenson/rbenv.git .rbenv
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;export PATH=&amp;quot;$HOME/.rbenv/bin:$PATH&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bashrc
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;eval &amp;quot;$(rbenv init -)&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bashrc
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Pre-install nodejs to have a javascript instant :&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;sudo pacman -S nodejs&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Create within my Github account the repository &lt;em&gt;datasciencer.github.io&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Install openssh&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Generate and add the public ssh key to this repository inside Settings/Deploy key. The key is show by enter this command line inside the terminal : cat .ssh/id_rsa.pub&lt;/li&gt;
+  &lt;li&gt;Install &lt;strong&gt;jekyll&lt;/strong&gt; through Ruby’s &lt;strong&gt;gem&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;gem install jekyll&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;write-the-first-blog&quot;&gt;Write the first blog&lt;/h2&gt;
+
+&lt;p&gt;Let’s start now by creating the jekyll blog : &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;jekyll new datasciencer.github.io&lt;/li&gt;
+  &lt;li&gt;cd datasciencer.github.io&lt;/li&gt;
+  &lt;li&gt;git remote set-url origin git@github.com:datasciencer/datasciencer.githu.io.git&lt;/li&gt;
+  &lt;li&gt;git add .&lt;/li&gt;
+  &lt;li&gt;git commit -m “first commit”&lt;/li&gt;
+  &lt;li&gt;git pull&lt;/li&gt;
+  &lt;li&gt;git push origin master&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Let’s check if jekyll could highlight R code&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;packages_vec &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;\&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;reshape2&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;ggplot2&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;XLConnect&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;dplyr&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;lapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;packages_vec&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; character.only&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;In case that you have multi-github-accounts and want to set ssh certificates,  follow &lt;a href=&quot;http://code.tutsplus.com/tutorials/quick-tip-how-to-work-with-github-and-multiple-accounts--net-22574&quot;&gt;this link&lt;/a&gt; : &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Generate a key for each repository of different github accounts&lt;/li&gt;
+  &lt;li&gt;Create a config file inside .ssh/ for ghaccount-1 and ghaccount-2&lt;/li&gt;
+  &lt;li&gt;Inside each origin folder, for example github account-1, enter this command into the terminal : git remote set-url origin git@ghaccount-1:nameaccount1/nameaccount1.github.io.git&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://github.com/jekyll/jekyll-help&quot;&gt;Jekyll’s dedicated Help repository&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[datasciencer] : http://datasciencer.github.io/&lt;/p&gt;
+</description>
+        <pubDate>Sun, 19 Oct 2014 20:20:11 +0200</pubDate>
+        <link>http://kektinta.github.io/blog/2014/10/19/my-first-blog/</link>
+        <guid isPermaLink="true">http://kektinta.github.io/blog/2014/10/19/my-first-blog/</guid>
+      </item>
+    
+  </channel>
+</rss>
