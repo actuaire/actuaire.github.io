@@ -25,7 +25,7 @@
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Table de maintien en incapacité">
-    <meta property="og:description" content="Usage de R en actuariat">
+    <meta property="og:description" content="R dans l'actuariat">
     <meta property="og:url" content="http://actuaire.github.io/mod%C3%A8le/de/dur%C3%A9e/2014/11/22/construction-table-incap/">
     <meta property="og:site_name" content="Actuaire">
 </head>
@@ -80,15 +80,68 @@
   <h1 class="py2">Table de maintien en incapacité</h1>
   <span class="post-meta">Nov 22, 2014</span><br>
   
-  <span class="post-meta small">2 minute read</span>
+  <span class="post-meta small">temps de lecture : 5 minutes</span>
 </div>
 
 <article class="post-content">
   <h1 id="lxt">lxt</h1>
 
+<p>La fonction <em>KapMei_2</em> calcule la fonction de survie brute et en déduit les lxt</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r">KapMei_2 <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span> df<span class="p">,</span> cause<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Acc&quot;</span><span class="p">),</span>DebObs<span class="p">,</span> FinObs<span class="p">,</span> anc_min<span class="o">=</span><span class="m">0</span><span class="p">,</span> anc_max<span class="o">=</span><span class="m">1095</span> <span class="p">){</span>
+
+df1<span class="o">&lt;-</span> df<span class="p">[</span>df<span class="o">$</span>cause2 <span class="o">%in%</span> cause<span class="p">,]</span>
+df1<span class="o">$</span>anc_ent_jour <span class="o">&lt;-</span> <span class="kp">with</span><span class="p">(</span>df1<span class="p">,</span> <span class="kp">as.numeric</span><span class="p">(</span><span class="kp">ifelse</span><span class="p">(</span>debut <span class="o">&lt;</span> DebObs<span class="p">,</span> <span class="kp">difftime</span><span class="p">(</span>DebObs<span class="p">,</span>debut<span class="p">,</span>unit<span class="o">=</span><span class="s">&#39;days&#39;</span><span class="p">),</span><span class="m">0</span><span class="p">)))</span>
+df1<span class="o">$</span>anc_sor_jour <span class="o">&lt;-</span> <span class="kp">with</span><span class="p">(</span>df1<span class="p">,</span><span class="kp">as.numeric</span><span class="p">(</span><span class="kp">difftime</span><span class="p">(</span><span class="kp">pmin</span><span class="p">(</span>fin<span class="p">,</span> FinObs<span class="p">),</span> debut<span class="p">,</span>unit<span class="o">=</span><span class="s">&quot;days&quot;</span><span class="p">)))</span>
+
+df1<span class="o">&lt;-</span> df1<span class="p">[</span>df1<span class="o">$</span>anc_sor_jour <span class="o">&gt;</span> df1<span class="o">$</span>anc_ent_jour<span class="p">,</span> <span class="p">]</span>
+
+w <span class="o">&lt;-</span> survfit<span class="p">(</span>Surv<span class="p">(</span>time <span class="o">=</span> anc_ent_jour<span class="p">,</span> time2 <span class="o">=</span> anc_sor_jour<span class="p">,</span>event<span class="o">=</span> non_censure<span class="p">,</span>type<span class="o">=</span><span class="s">&quot;counting&quot;</span><span class="p">)</span><span class="o">~</span><span class="m">1</span><span class="p">,</span> data<span class="o">=</span>df1<span class="p">,</span>  type<span class="o">=</span><span class="s">&quot;kaplan-meier&quot;</span><span class="p">,</span>conf.type<span class="o">=</span><span class="s">&quot;plain&quot;</span><span class="p">,</span>conf.int<span class="o">=</span><span class="m">0.95</span><span class="p">)</span>
+
+ S   <span class="o">&lt;-</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="kp">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1095</span><span class="p">))</span>
+   
+  <span class="kr">for</span><span class="p">(</span>x <span class="kr">in</span> anc_min<span class="o">:</span>anc_max<span class="p">)</span>
+  <span class="p">{</span>
+    S<span class="p">[</span>x<span class="m">+1</span><span class="p">]</span><span class="o">=</span><span class="kp">min</span><span class="p">(</span>w<span class="o">$</span>surv<span class="p">[</span>w<span class="o">$</span>time<span class="o">&lt;=</span>x<span class="p">])</span>
+  <span class="p">}</span>
+  
+df2 <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>t<span class="o">=</span><span class="p">(</span>anc_min <span class="o">:</span> anc_max <span class="p">),</span> l_xt <span class="o">=</span> S <span class="o">*</span> <span class="m">10000</span><span class="p">)</span>
+  <span class="kr">return</span><span class="p">(</span>df2<span class="p">)</span>	
+<span class="p">}</span></code></pre></div>
+
+<p>On applique la fonction à la base de données</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r">base1 <span class="o">&lt;-</span> base0<span class="p">[</span>base0<span class="o">$</span>age <span class="o">%in%</span> age_vec<span class="p">,]</span>
+
+taux_ac<span class="o">&lt;-</span> <span class="kp">by</span><span class="p">(</span>base1<span class="p">,</span> base1<span class="p">[,</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;tr_age&quot;</span><span class="p">)],</span> KapMei_2<span class="p">,</span> cause<span class="o">=</span> <span class="s">&quot;Acc&quot;</span><span class="p">,</span>DebObs<span class="o">=</span> debut_obs<span class="p">,</span> FinObs<span class="o">=</span> fin_obs<span class="p">,</span>anc_max<span class="o">=</span>anciennete_max<span class="p">)</span>
+
+taux_ma <span class="o">&lt;-</span> <span class="kp">by</span><span class="p">(</span>base1<span class="p">,</span> base1<span class="p">[,</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;tr_age&quot;</span><span class="p">)],</span> KapMei_2<span class="p">,</span> cause<span class="o">=</span> <span class="s">&quot;Mal&quot;</span><span class="p">,</span>DebObs<span class="o">=</span> debut_obs<span class="p">,</span> FinObs<span class="o">=</span> fin_obs<span class="p">,</span>anc_max<span class="o">=</span>anciennete_max<span class="p">)</span>
+
+
+taux 	<span class="o">&lt;-</span> <span class="kt">list</span><span class="p">(</span>taux_ac<span class="p">,</span> taux_ma<span class="p">)</span>
+<span class="kp">names</span><span class="p">(</span>taux<span class="p">)</span>  <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;Accident&quot;</span><span class="p">,</span><span class="s">&quot;Maladie&quot;</span><span class="p">)</span>
+
+taux1 	<span class="o">&lt;-</span> <span class="kp">lapply</span><span class="p">(</span>taux<span class="p">,</span> <span class="kr">function</span><span class="p">(</span>element<span class="p">)</span> <span class="p">{</span> 
+	df 		<span class="o">&lt;-</span> rbindlist<span class="p">(</span>element<span class="p">)</span>
+	df<span class="o">$</span>x  	<span class="o">&lt;-</span> <span class="kp">rep</span><span class="p">(</span>tr_age_vec<span class="p">,</span> each<span class="o">=</span> anciennete_max<span class="m">+1</span><span class="p">)</span>
+	<span class="kr">return</span><span class="p">(</span>df<span class="p">)</span>
+	<span class="p">})</span>
+
+<span class="kp">save</span><span class="p">(</span>taux1<span class="p">,</span> file<span class="o">=</span><span class="s">&quot;Processed/Data/taux1.RData&quot;</span><span class="p">)</span>
+
+<span class="c1">#Matrice des lxt bruts de maintien : accident / maladie </span>
+taux1_hor <span class="o">&lt;-</span> <span class="kp">lapply</span><span class="p">(</span>taux1<span class="p">,</span> <span class="kr">function</span><span class="p">(</span>df<span class="p">)</span> <span class="p">{</span> dcast<span class="p">(</span>df<span class="p">,</span> t <span class="o">~</span> x<span class="p">,</span> <span class="p">,</span> value.var<span class="o">=</span><span class="s">&quot;l_xt&quot;</span><span class="p">)})</span>
+
+<span class="kp">save</span><span class="p">(</span>taux1_hor<span class="p">,</span> file<span class="o">=</span><span class="s">&quot;Processed/Data/taux1_hor.RData&quot;</span><span class="p">)</span></code></pre></div>
+
 <p>Le data frame de lxt est récupéré à la sortie de la fonction KapMei_2(). Il est également sauvegardé dans <em>Processed/Data/taux1_hor.RData</em></p>
 
-<p>Il est de format suivant </p>
+<p>Il est de format suivant : </p>
+
+<ul>
+  <li>en ligne : ancienneté de maintien en jours</li>
+  <li>en colonne : tranche d’âges d’entrée en incapacité</li>
+</ul>
 
 <div class="highlight"><pre><code class="language-r" data-lang="r"><span class="o">&gt;</span> <span class="kp">head</span><span class="p">(</span>lx_acc<span class="p">)</span>
   t        <span class="m">18</span>        <span class="m">35</span>        <span class="m">40</span>        <span class="m">45</span>        <span class="m">50</span>        <span class="m">55</span>
@@ -124,8 +177,10 @@ rolling_sum<span class="p">(</span>test_vec<span class="p">,</span><span class="
 	<span class="kr">return</span><span class="p">(</span>drt<span class="p">)</span>
 	<span class="p">}</span></code></pre></div>
 
-<p>Pour la méthode 1, i.e à l’horizon de 3 ans, la variable <em>pas = 1095</em> 
-Pour la méthode 2, i.e à l’horizon de 3 ans, la variable <em>pas = 365</em> </p>
+<ul>
+  <li>Pour la méthode 1, i.e à l’horizon de 3 ans, la variable <em>pas = 1095</em> </li>
+  <li>Pour la méthode 2, i.e à l’horizon de 3 ans, la variable <em>pas = 365</em> </li>
+</ul>
 
 <p>Finalement, en utilisant <em>lapply()</em>, on peut transformer un dataframe lxt en drt.</p>
 

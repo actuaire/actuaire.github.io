@@ -1,13 +1,11 @@
-# Kektinta
+# Actuaire
 
-My personal blog based on Pixyll theme. 
+Source du blog actuaire.github.io
 
-A place to share some tips about:
+Le blog propose des ressources R pour les différents sujets en actuariat.
 
-* PC tasks : Linux OS, blogging
-* Photography
-* Kitchen : some simple dishes
+Il est supporté par Jekyll, projet écrit en Ruby et hébergé par Github. 
 
-The main stream of the blog is the minimalism principle: 
+Bonne lecture,
 
-> When you don't have anything, you don't need anything
+ADN

@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Actuaire</title>
-    <description>Usage de R en actuariat</description>
+    <description>R dans l'actuariat</description>
     <link>http://actuaire.github.io/</link>
     <atom:link href="http://actuaire.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
@@ -10,9 +10,62 @@
         <title>Table de maintien en incapacité</title>
         <description>&lt;h1 id=&quot;lxt&quot;&gt;lxt&lt;/h1&gt;
 
+&lt;p&gt;La fonction &lt;em&gt;KapMei_2&lt;/em&gt; calcule la fonction de survie brute et en déduit les lxt&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;KapMei_2 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; df&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; cause&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Acc&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;DebObs&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; FinObs&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anc_min&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anc_max&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1095&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+
+df1&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; df&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;df&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;cause2 &lt;span class=&quot;o&quot;&gt;%in%&lt;/span&gt; cause&lt;span class=&quot;p&quot;&gt;,]&lt;/span&gt;
+df1&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;anc_ent_jour &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;ifelse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;debut &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; DebObs&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;difftime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;DebObs&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;debut&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;unit&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;days&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+df1&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;anc_sor_jour &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;difftime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;pmin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fin&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; FinObs&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; debut&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;unit&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;days&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+
+df1&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; df1&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;df1&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;anc_sor_jour &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; df1&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;anc_ent_jour&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+w &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; survfit&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Surv&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;time &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; anc_ent_jour&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; time2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; anc_sor_jour&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;event&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; non_censure&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;type&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;counting&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; data&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;df1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  type&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;kaplan-meier&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;conf.type&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;plain&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;conf.int&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.95&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+ S   &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1095&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+   
+  &lt;span class=&quot;kr&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt; anc_min&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;anc_max&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    S&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;x&lt;span class=&quot;m&quot;&gt;+1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;w&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;surv&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;w&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;time&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  
+df2 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;t&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anc_min &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; anc_max &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; l_xt &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; S &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kr&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;	
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;On applique la fonction à la base de données&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;base1 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; base0&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;base0&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;age &lt;span class=&quot;o&quot;&gt;%in%&lt;/span&gt; age_vec&lt;span class=&quot;p&quot;&gt;,]&lt;/span&gt;
+
+taux_ac&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;base1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; base1&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;tr_age&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)],&lt;/span&gt; KapMei_2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; cause&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Acc&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;DebObs&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; debut_obs&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; FinObs&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; fin_obs&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;anc_max&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;anciennete_max&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+taux_ma &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;base1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; base1&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;tr_age&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)],&lt;/span&gt; KapMei_2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; cause&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Mal&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;DebObs&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; debut_obs&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; FinObs&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; fin_obs&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;anc_max&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;anciennete_max&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+taux 	&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;taux_ac&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; taux_ma&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;taux&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Accident&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Maladie&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+taux1 	&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;lapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;taux&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;element&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; 
+	df 		&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; rbindlist&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;element&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	df&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;x  	&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;tr_age_vec&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; each&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; anciennete_max&lt;span class=&quot;m&quot;&gt;+1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;kr&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+
+&lt;span class=&quot;kp&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;taux1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; file&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Processed/Data/taux1.RData&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#Matrice des lxt bruts de maintien : accident / maladie &lt;/span&gt;
+taux1_hor &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;lapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;taux1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; dcast&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; t &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value.var&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;l_xt&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)})&lt;/span&gt;
+
+&lt;span class=&quot;kp&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;taux1_hor&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; file&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Processed/Data/taux1_hor.RData&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
 &lt;p&gt;Le data frame de lxt est récupéré à la sortie de la fonction KapMei_2(). Il est également sauvegardé dans &lt;em&gt;Processed/Data/taux1_hor.RData&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;Il est de format suivant &lt;/p&gt;
+&lt;p&gt;Il est de format suivant : &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;en ligne : ancienneté de maintien en jours&lt;/li&gt;
+  &lt;li&gt;en colonne : tranche d’âges d’entrée en incapacité&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lx_acc&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   t        &lt;span class=&quot;m&quot;&gt;18&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;35&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;40&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;45&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;55&lt;/span&gt;
@@ -48,8 +101,10 @@ rolling_sum&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;test_vec&lt;span class=
 	&lt;span class=&quot;kr&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;drt&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Pour la méthode 1, i.e à l’horizon de 3 ans, la variable &lt;em&gt;pas = 1095&lt;/em&gt; 
-Pour la méthode 2, i.e à l’horizon de 3 ans, la variable &lt;em&gt;pas = 365&lt;/em&gt; &lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Pour la méthode 1, i.e à l’horizon de 3 ans, la variable &lt;em&gt;pas = 1095&lt;/em&gt; &lt;/li&gt;
+  &lt;li&gt;Pour la méthode 2, i.e à l’horizon de 3 ans, la variable &lt;em&gt;pas = 365&lt;/em&gt; &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;Finalement, en utilisant &lt;em&gt;lapply()&lt;/em&gt;, on peut transformer un dataframe lxt en drt.&lt;/p&gt;
 
