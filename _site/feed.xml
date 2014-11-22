@@ -1,10 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kektinta</title>
-    <description>Some thoughts for a simple relation with you PC</description>
-    <link>http://kektinta.github.io/</link>
-    <atom:link href="http://kektinta.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <title>Actuaire</title>
+    <description>Usage de R en actuariat</description>
+    <link>http://actuaire.github.io/</link>
+    <atom:link href="http://actuaire.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>Table de maintien en incapacité</title>
+        <description>&lt;h1 id=&quot;lxt&quot;&gt;lxt&lt;/h1&gt;
+
+&lt;p&gt;Le data frame de lxt est récupéré à la sortie de la fonction KapMei_2(). Il est également sauvegardé dans &lt;em&gt;Processed/Data/taux1_hor.RData&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Il est de format suivant &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lx_acc&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  t        &lt;span class=&quot;m&quot;&gt;18&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;35&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;40&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;45&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;55&lt;/span&gt;
+&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10000.000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10000.000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10000.000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10000.000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10000.000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10000.000&lt;/span&gt;
+&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10000.000&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9993.987&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9983.962&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10000.000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10000.000&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9982.100&lt;/span&gt;
+&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9972.863&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9987.974&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9971.933&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9985.668&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9995.826&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9964.200&lt;/span&gt;
+&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9966.079&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9981.960&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9955.881&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9967.753&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9987.479&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9934.332&lt;/span&gt;
+&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9938.942&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9957.907&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9951.868&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9957.001&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9974.958&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9922.384&lt;/span&gt;
+&lt;span class=&quot;m&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9925.373&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9927.823&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9943.839&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9946.244&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9949.917&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9886.520&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;drt&quot;&gt;DRT&lt;/h1&gt;
+
+&lt;p&gt;Calculer la DRT(x,t) à partir des l_xt&lt;/p&gt;
+
+&lt;p&gt;On écrit la fonction générique &lt;em&gt;rolling_sum()&lt;/em&gt; pour calculer la somme glissante d’un vecteur &lt;em&gt;vec_in&lt;/em&gt; de &lt;em&gt;sf&lt;/em&gt; pas (sf pour steps forward) &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;rolling_sum &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; vec_in &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; sf &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; 
+   vec &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;vec_in&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;sf&lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+   vec_out 	&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;  &lt;span class=&quot;kp&quot;&gt;rowSums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;embed&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;vec&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;sf&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+   &lt;span class=&quot;kr&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;vec_out&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+test_vec &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;65&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+rolling_sum&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;test_vec&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;On peut en déduire la fonction &lt;em&gt;drt_vec()&lt;/em&gt; qui prend un vecteur de lt pour un âge donné et donne à la sortie un vecteur drt.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;drt_vec &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lxt_vec&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; pas &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	lxt_rs &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; rolling_sum&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lxt_vec&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; sf &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pas &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	drt &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;ifelse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lxt_vec &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lxt_rs &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; lxt_vec &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;kr&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;drt&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Pour la méthode 1, i.e à l’horizon de 3 ans, la variable &lt;em&gt;pas = 1095&lt;/em&gt; 
+Pour la méthode 2, i.e à l’horizon de 3 ans, la variable &lt;em&gt;pas = 365&lt;/em&gt; &lt;/p&gt;
+
+&lt;p&gt;Finalement, en utilisant &lt;em&gt;lapply()&lt;/em&gt;, on peut transformer un dataframe lxt en drt.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;drt3a_acc&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anc &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lx_acc&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;lapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lx_acc&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; drt_vec&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; pas&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1095&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+drt3a_mal&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anc &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lx_mal&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;lapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lx_mal&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; drt_vec&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; pas&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1095&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+
+drt1a_acc&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anc &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lx_acc&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;lapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lx_acc&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; drt_vec&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; pas&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;365&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+drt1a_mal&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anc &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lx_mal&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;lapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lx_mal&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; drt_vec&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; pas&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;365&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Sat, 22 Nov 2014 00:50:18 +0100</pubDate>
+        <link>http://actuaire.github.io/mod%C3%A8le/de/dur%C3%A9e/2014/11/22/construction-table-incap/</link>
+        <guid isPermaLink="true">http://actuaire.github.io/mod%C3%A8le/de/dur%C3%A9e/2014/11/22/construction-table-incap/</guid>
+      </item>
     
       <item>
         <title>Memo on VIM use</title>
@@ -81,10 +140,12 @@ If char is (, {, or [; to go to its match : % . This feature is useful to detect
 
 &lt;h2 id=&quot;substitution-operation&quot;&gt;Substitution operation&lt;/h2&gt;
 
-&lt;p&gt;To substitute new for all ‘old’s on a line type       :s/old/new/g
-To substitute phrases between two line #’s type       :#,#s/old/new/g
-To substitute all occurrences in the file type        :%s/old/new/g
-To ask for confirmation each time add ‘c’             :%s/old/new/gc&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;To substitute new for all ‘old’s on a line type       :s/old/new/g&lt;/li&gt;
+  &lt;li&gt;To substitute phrases between two line #’s type       :#,#s/old/new/g&lt;/li&gt;
+  &lt;li&gt;To substitute all occurrences in the file type        :%s/old/new/g&lt;/li&gt;
+  &lt;li&gt;To ask for confirmation each time add ‘c’             :%s/old/new/gc&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;Example : Delete white space from the beginning of 4 line (from 61th to the 64th): :61,64s/^  / &lt;/p&gt;
 
@@ -178,141 +239,8 @@ The plugin introduces a new feature compare to classic Vim feature, the &lt;em&g
 
 </description>
         <pubDate>Tue, 18 Nov 2014 22:45:18 +0100</pubDate>
-        <link>http://kektinta.github.io/text/editpr/2014/11/18/howto-vim/</link>
-        <guid isPermaLink="true">http://kektinta.github.io/text/editpr/2014/11/18/howto-vim/</guid>
-      </item>
-    
-      <item>
-        <title>My first post</title>
-        <description>&lt;p&gt;I got problem to push to different github accounts: Let’s see 
-if it works. Here is a test from Nano within the terminal.
-yes’s jour&lt;/p&gt;
-</description>
-        <pubDate>Mon, 20 Oct 2014 14:32:18 +0200</pubDate>
-        <link>http://kektinta.github.io/2014/10/20/first-post/</link>
-        <guid isPermaLink="true">http://kektinta.github.io/2014/10/20/first-post/</guid>
-      </item>
-    
-      <item>
-        <title>The digital spiral</title>
-        <description>&lt;p&gt;The Internet is everywhere, the only reasonable answer is individual.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.lemonde.fr/style/article/2012/04/27/ces-branches-qui-debranchent_1691531_1575563.html&quot;&gt;Lemonde&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;[TOC]&lt;/p&gt;
-
-&lt;h1 id=&quot;hardwares&quot;&gt;Hardwares&lt;/h1&gt;
-
-&lt;p&gt;The devices shouldn’t be more than 10&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Refurbished Thinkpad with Linux installed (Manjaro OS)&lt;/li&gt;
-  &lt;li&gt;USB flashdrive, ex : 8Gb metalic Transcend &lt;/li&gt;
-  &lt;li&gt;External Hard Drive, ex : Toshiba 500Gb&lt;/li&gt;
-  &lt;li&gt;SLR, ex : K10D with SMC-A 50mm&lt;/li&gt;
-  &lt;li&gt;Compact camera&lt;/li&gt;
-  &lt;li&gt;Cellphone with physical keyboard, ex : Nokia 302. Avoid smartphones&lt;/li&gt;
-  &lt;li&gt;Watch, ex : Casio A-168&lt;/li&gt;
-  &lt;li&gt;Pocket knife, ex : Opinel N°08&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;working-with-the-pc&quot;&gt;Working with the PC&lt;/h1&gt;
-
-&lt;h2 id=&quot;softwares&quot;&gt;Softwares&lt;/h2&gt;
-
-&lt;p&gt;The main idea is that the PC should stay a modern type-writer. An over-connection will lead into a inefficient state. Hence, the softwares shouldn’t be more than 15&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;For everyday use&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Zim : taking notes and journal&lt;/li&gt;
-  &lt;li&gt;Keepassx : centralize passwords&lt;/li&gt;
-  &lt;li&gt;Firefox (+ plugins Addblock Edge, Pentadactyl)&lt;/li&gt;
-  &lt;li&gt;Smplayer (or VLC)&lt;/li&gt;
-  &lt;li&gt;Grsync&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;For photography&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Shotwell&lt;/li&gt;
-  &lt;li&gt;Gimp&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;For programming&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Sublime Text 3 : for .md and  .R files&lt;/li&gt;
-  &lt;li&gt;Git&lt;/li&gt;
-  &lt;li&gt;Rstudio : for .Rmd&lt;/li&gt;
-  &lt;li&gt;Pandoc : convert documents&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt; : Some softwares are not included in the list since I consider these  default softwares of the OS ( mine is a Xfce Manjaro Linux):&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;File manager, ex : Thunar &lt;/li&gt;
-  &lt;li&gt;Terminal, ex: Terminator or xfce4-terminal&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;configurate-the-linux-os&quot;&gt;Configurate the Linux OS&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Add shortcuts&lt;/li&gt;
-  &lt;li&gt;Install Conky&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;photography&quot;&gt;Photography&lt;/h1&gt;
-
-&lt;h2 id=&quot;some-rules-of-thumb-for-photo-shooting&quot;&gt;Some rules of thumb for photo shooting&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Generals rules&lt;/strong&gt; :&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Rule of thirds&lt;/li&gt;
-  &lt;li&gt;Visual mass &lt;/li&gt;
-  &lt;li&gt;Contrast&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Portraits&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Small depth-of-field&lt;/li&gt;
-  &lt;li&gt;Overhead-cropping&lt;/li&gt;
-  &lt;li&gt;Rule of thirds&lt;/li&gt;
-  &lt;li&gt;Look direction &lt;/li&gt;
-  &lt;li&gt;Top down (female portraits) or Bottom up&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;post-processing-with-gimp&quot;&gt;Post-processing with Gimp&lt;/h2&gt;
-
-&lt;p&gt;It’s all about the moment when the photos are taken. The photo post-processing shouldn’t be systematic, but a way to enhance photos.&lt;/p&gt;
-
-&lt;p&gt;These are basic operations&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Select area : by figure, lasso or intelligent scissor&lt;/li&gt;
-  &lt;li&gt;Rescale layers &lt;/li&gt;
-  &lt;li&gt;Crop layers&lt;/li&gt;
-  &lt;li&gt;Add letters&lt;/li&gt;
-  &lt;li&gt;Colors jobs : 
-    &lt;ul&gt;
-      &lt;li&gt;Destaurate (turn image to BW) B&lt;/li&gt;
-      &lt;li&gt;Brightness &amp;amp; constrast&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Filter :
-    &lt;ul&gt;
-      &lt;li&gt;Blur &lt;/li&gt;
-      &lt;li&gt;Noise&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Sun, 19 Oct 2014 23:12:11 +0200</pubDate>
-        <link>http://kektinta.github.io/blog/2014/10/19/digital-spiral/</link>
-        <guid isPermaLink="true">http://kektinta.github.io/blog/2014/10/19/digital-spiral/</guid>
+        <link>http://actuaire.github.io/text/editpr/2014/11/18/howto-vim/</link>
+        <guid isPermaLink="true">http://actuaire.github.io/text/editpr/2014/11/18/howto-vim/</guid>
       </item>
     
       <item>
@@ -383,13 +311,19 @@ git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-buil
   &lt;li&gt;Inside each origin folder, for example github account-1, enter this command into the terminal : git remote set-url origin git@ghaccount-1:nameaccount1/nameaccount1.github.io.git&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;h2 id=&quot;ajustement-for-pixyll-theme&quot;&gt;Ajustement for Pixyll theme&lt;/h2&gt;
+
+&lt;p&gt;To change headers’ font size, go to _sass/_main.scss&lt;/p&gt;
+
+&lt;p&gt;Modify font size for headers h1, h2, h3 … inside three blocks &lt;em&gt;@media screen&lt;/em&gt; : min-width : 48em, max-width : 48em, min-width : 64e&lt;/p&gt;
+
 &lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://github.com/jekyll/jekyll-help&quot;&gt;Jekyll’s dedicated Help repository&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;[datasciencer] : http://datasciencer.github.io/&lt;/p&gt;
 </description>
         <pubDate>Sun, 19 Oct 2014 20:20:11 +0200</pubDate>
-        <link>http://kektinta.github.io/blog/2014/10/19/my-first-blog/</link>
-        <guid isPermaLink="true">http://kektinta.github.io/blog/2014/10/19/my-first-blog/</guid>
+        <link>http://actuaire.github.io/blog/2014/10/19/my-first-blog/</link>
+        <guid isPermaLink="true">http://actuaire.github.io/blog/2014/10/19/my-first-blog/</guid>
       </item>
     
   </channel>

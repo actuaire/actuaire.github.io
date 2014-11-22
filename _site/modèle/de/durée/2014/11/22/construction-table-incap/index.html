@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Table de maintien en incapacité &#8211; Actuaire</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Procédure de construction des taux d'expérience">
+    <meta name="author" content="ADN">
+    <meta name="keywords" content="modèle, de, durée">
+    <link rel="canonical" href="http://actuaire.github.io/mod%C3%A8le/de/dur%C3%A9e/2014/11/22/construction-table-incap/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+      <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Table de maintien en incapacité">
+    <meta property="og:description" content="Usage de R en actuariat">
+    <meta property="og:url" content="http://actuaire.github.io/mod%C3%A8le/de/dur%C3%A9e/2014/11/22/construction-table-incap/">
+    <meta property="og:site_name" content="Actuaire">
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://actuaire.github.io" class="site-title">Actuaire</a>
+      <nav class="site-nav right">
+        <a href="/about/">About</a>
+<a href="/contact/">Contact</a>
+<a href="/archive/">Archive</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+        <div class="social-icons">
+  <div class="left">
+    
+      <a class="fa fa-github" href="https://github.com/actuaire"></a>
+    
+    <a class="fa fa-rss" href="/feed.xml"></a>
+    
+    
+    
+      <a class="fa fa-envelope" href="mailto:actuaire@inventati.org"></a>
+    
+    
+  </div>
+  <div class="right">
+    
+    
+    
+  </div>
+</div>
+<div class="clearfix"></div>
+
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1 class="py2">Table de maintien en incapacité</h1>
+  <span class="post-meta">Nov 22, 2014</span><br>
+  
+  <span class="post-meta small">2 minute read</span>
+</div>
+
+<article class="post-content">
+  <h1 id="lxt">lxt</h1>
+
+<p>Le data frame de lxt est récupéré à la sortie de la fonction KapMei_2(). Il est également sauvegardé dans <em>Processed/Data/taux1_hor.RData</em></p>
+
+<p>Il est de format suivant </p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="o">&gt;</span> <span class="kp">head</span><span class="p">(</span>lx_acc<span class="p">)</span>
+  t        <span class="m">18</span>        <span class="m">35</span>        <span class="m">40</span>        <span class="m">45</span>        <span class="m">50</span>        <span class="m">55</span>
+<span class="m">1</span> <span class="m">0</span> <span class="m">10000.000</span> <span class="m">10000.000</span> <span class="m">10000.000</span> <span class="m">10000.000</span> <span class="m">10000.000</span> <span class="m">10000.000</span>
+<span class="m">2</span> <span class="m">1</span> <span class="m">10000.000</span>  <span class="m">9993.987</span>  <span class="m">9983.962</span> <span class="m">10000.000</span> <span class="m">10000.000</span>  <span class="m">9982.100</span>
+<span class="m">3</span> <span class="m">2</span>  <span class="m">9972.863</span>  <span class="m">9987.974</span>  <span class="m">9971.933</span>  <span class="m">9985.668</span>  <span class="m">9995.826</span>  <span class="m">9964.200</span>
+<span class="m">4</span> <span class="m">3</span>  <span class="m">9966.079</span>  <span class="m">9981.960</span>  <span class="m">9955.881</span>  <span class="m">9967.753</span>  <span class="m">9987.479</span>  <span class="m">9934.332</span>
+<span class="m">5</span> <span class="m">4</span>  <span class="m">9938.942</span>  <span class="m">9957.907</span>  <span class="m">9951.868</span>  <span class="m">9957.001</span>  <span class="m">9974.958</span>  <span class="m">9922.384</span>
+<span class="m">6</span> <span class="m">5</span>  <span class="m">9925.373</span>  <span class="m">9927.823</span>  <span class="m">9943.839</span>  <span class="m">9946.244</span>  <span class="m">9949.917</span>  <span class="m">9886.520</span></code></pre></div>
+
+<h1 id="drt">DRT</h1>
+
+<p>Calculer la DRT(x,t) à partir des l_xt</p>
+
+<p>On écrit la fonction générique <em>rolling_sum()</em> pour calculer la somme glissante d’un vecteur <em>vec_in</em> de <em>sf</em> pas (sf pour steps forward) </p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r">rolling_sum <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span> vec_in <span class="p">,</span> sf <span class="p">)</span>
+<span class="p">{</span> 
+   vec <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>vec_in<span class="p">,</span> <span class="kp">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span>sf<span class="m">-1</span><span class="p">))</span>
+   vec_out 	<span class="o">&lt;-</span>  <span class="kp">rowSums</span><span class="p">(</span>embed<span class="p">(</span>vec<span class="p">,</span>sf<span class="p">))</span>
+   <span class="kr">return</span><span class="p">(</span>vec_out<span class="p">)</span>
+<span class="p">}</span>
+
+test_vec <span class="o">&lt;-</span> <span class="p">(</span><span class="m">18</span><span class="o">:</span><span class="m">65</span><span class="p">)</span> 
+rolling_sum<span class="p">(</span>test_vec<span class="p">,</span><span class="m">20</span><span class="p">)</span></code></pre></div>
+
+<p>On peut en déduire la fonction <em>drt_vec()</em> qui prend un vecteur de lt pour un âge donné et donne à la sortie un vecteur drt.</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r">drt_vec <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>lxt_vec<span class="p">,</span> pas <span class="p">)</span>
+	<span class="p">{</span>
+	lxt_rs <span class="o">&lt;-</span> rolling_sum<span class="p">(</span>lxt_vec<span class="p">,</span> sf <span class="o">=</span> pas <span class="p">)</span>
+	drt <span class="o">&lt;-</span> <span class="kp">ifelse</span><span class="p">(</span>lxt_vec <span class="o">==</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> lxt_rs <span class="o">/</span> lxt_vec <span class="o">-</span> <span class="m">0.5</span><span class="p">)</span>
+	<span class="kr">return</span><span class="p">(</span>drt<span class="p">)</span>
+	<span class="p">}</span></code></pre></div>
+
+<p>Pour la méthode 1, i.e à l’horizon de 3 ans, la variable <em>pas = 1095</em> 
+Pour la méthode 2, i.e à l’horizon de 3 ans, la variable <em>pas = 365</em> </p>
+
+<p>Finalement, en utilisant <em>lapply()</em>, on peut transformer un dataframe lxt en drt.</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r">drt3a_acc<span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>anc <span class="o">=</span> lx_acc<span class="o">$</span><span class="kp">t</span><span class="p">,</span> <span class="kp">lapply</span><span class="p">(</span>lx_acc<span class="p">[,</span><span class="m">-1</span><span class="p">],</span> <span class="kr">function</span><span class="p">(</span><span class="kp">col</span><span class="p">)</span> drt_vec<span class="p">(</span><span class="kp">col</span><span class="p">,</span> pas<span class="o">=</span> <span class="m">1095</span><span class="p">)))</span>
+drt3a_mal<span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>anc <span class="o">=</span> lx_mal<span class="o">$</span><span class="kp">t</span><span class="p">,</span> <span class="kp">lapply</span><span class="p">(</span>lx_mal<span class="p">[,</span><span class="m">-1</span><span class="p">],</span> <span class="kr">function</span><span class="p">(</span><span class="kp">col</span><span class="p">)</span> drt_vec<span class="p">(</span><span class="kp">col</span><span class="p">,</span> pas<span class="o">=</span> <span class="m">1095</span><span class="p">)))</span>
+
+drt1a_acc<span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>anc <span class="o">=</span> lx_acc<span class="o">$</span><span class="kp">t</span><span class="p">,</span> <span class="kp">lapply</span><span class="p">(</span>lx_acc<span class="p">[,</span><span class="m">-1</span><span class="p">],</span> <span class="kr">function</span><span class="p">(</span><span class="kp">col</span><span class="p">)</span> drt_vec<span class="p">(</span><span class="kp">col</span><span class="p">,</span> pas<span class="o">=</span> <span class="m">365</span><span class="p">)))</span>
+drt1a_mal<span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>anc <span class="o">=</span> lx_mal<span class="o">$</span><span class="kp">t</span><span class="p">,</span> <span class="kp">lapply</span><span class="p">(</span>lx_mal<span class="p">[,</span><span class="m">-1</span><span class="p">],</span> <span class="kr">function</span><span class="p">(</span><span class="kp">col</span><span class="p">)</span> drt_vec<span class="p">(</span><span class="kp">col</span><span class="p">,</span> pas<span class="o">=</span> <span class="m">365</span><span class="p">)))</span></code></pre></div>
+
+
+</article>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+  <div class="p2 wrap">
+    <div class="measure mt1 center">
+      <small>
+        Crafted with &lt;3 by <a href="http://johnotander.com">John Otander</a> (<a href="https://twitter.com/4lpine">@4lpine</a>).<br>
+        &lt;/&gt; available on <a href="https://github.com/johnotander/pixyll">Github</a>.
+      </small>
+    </div>
+  </div>
+</footer>
+
+
+
+</body>
+</html>
