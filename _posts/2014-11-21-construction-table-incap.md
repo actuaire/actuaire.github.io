@@ -9,9 +9,68 @@ published : true
 
 # lxt #
 
+La fonction *KapMei_2* calcule la fonction de survie brute et en déduit les lxt
+
+{% highlight R %}
+
+KapMei_2 <- function( df, cause=c("Acc"),DebObs, FinObs, anc_min=0, anc_max=1095 ){
+
+df1<- df[df$cause2 %in% cause,]
+df1$anc_ent_jour <- with(df1, as.numeric(ifelse(debut < DebObs, difftime(DebObs,debut,unit='days'),0)))
+df1$anc_sor_jour <- with(df1,as.numeric(difftime(pmin(fin, FinObs), debut,unit="days")))
+
+df1<- df1[df1$anc_sor_jour > df1$anc_ent_jour, ]
+
+w <- survfit(Surv(time = anc_ent_jour, time2 = anc_sor_jour,event= non_censure,type="counting")~1, data=df1,  type="kaplan-meier",conf.type="plain",conf.int=0.95)
+
+ S   <-c(1, rep(0,1095))
+   
+  for(x in anc_min:anc_max)
+  {
+    S[x+1]=min(w$surv[w$time<=x])
+  }
+  
+df2 <- data.frame(t=(anc_min : anc_max ), l_xt = S * 10000)
+  return(df2)	
+}
+
+{% endhighlight %}
+
+On applique la fonction à la base de données
+
+{% highlight R %}
+
+base1 <- base0[base0$age %in% age_vec,]
+
+taux_ac<- by(base1, base1[,c("tr_age")], KapMei_2, cause= "Acc",DebObs= debut_obs, FinObs= fin_obs,anc_max=anciennete_max)
+
+taux_ma <- by(base1, base1[,c("tr_age")], KapMei_2, cause= "Mal",DebObs= debut_obs, FinObs= fin_obs,anc_max=anciennete_max)
+
+
+taux 	<- list(taux_ac, taux_ma)
+names(taux)  <- c("Accident","Maladie")
+
+taux1 	<- lapply(taux, function(element) { 
+	df 		<- rbindlist(element)
+	df$x  	<- rep(tr_age_vec, each= anciennete_max+1)
+	return(df)
+	})
+
+save(taux1, file="Processed/Data/taux1.RData")
+
+#Matrice des lxt bruts de maintien : accident / maladie 
+taux1_hor <- lapply(taux1, function(df) { dcast(df, t ~ x, , value.var="l_xt")})
+
+save(taux1_hor, file="Processed/Data/taux1_hor.RData")
+
+{% endhighlight %}
+
 Le data frame de lxt est récupéré à la sortie de la fonction KapMei_2(). Il est également sauvegardé dans *Processed/Data/taux1_hor.RData*
 
-Il est de format suivant 
+Il est de format suivant : 
+
+* en ligne : ancienneté de maintien en jours
+* en colonne : tranche d'âges d'entrée en incapacité
 
 {% highlight R %}
 

@@ -1,14 +1,15 @@
 ---
 layout: page
-title: About Kektinta
+title: Actuaire et R
 permalink: /about/
 ---
 
-The blog is based on the Jekyll theme, Pixyll by [John Otander](http://johnotander.com) 
+Le blog contient les ressources R pour les différents sujets en actuariat.
 
 
-Thanks to the following:
+Mes remerciements à :
 
+* Jekyll's Theme Pixyll de [John Otander](http://johnotander.com) 
 * [BASSCSS](http://basscss.com)
 * [Jekyll](http://jekyllrb.com)
 * [Refills](http://refills.bourbon.io/)
