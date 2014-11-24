@@ -3,6 +3,7 @@ layout: post
 title:  "My first blog"
 date:   2014-10-19 18:20:11
 categories: blog
+published : false
 ---
 
 Finally, I have a blog run on Jekyll and Github. In my case, the simplest way is using pure Jekyll. Others solutions such as Octopress or Jekyllbootstrap have cost me a lot energy and time. Moreover, I felt that these latters have taken away from the UNIX's KISS principle. What please me the most with pure Jekyll is the Spartan configurations. Everythins is about the contents, the appearance is reduced to the strict necessary.
